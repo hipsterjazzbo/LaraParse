@@ -1,0 +1,18 @@
+<?php
+
+namespace {{namespace}};
+
+use Parse\ParseObject;
+use LaraParse\Traits\CastsParseProperties;
+
+/**
+ * Class {{class}}
+ *
+ * @package LaraParse
+ */
+class {{class}} extends ParseObject
+{
+    use CastsParseProperties;
+
+    public static $parseClassName = '{{parseClass}}';
+}
