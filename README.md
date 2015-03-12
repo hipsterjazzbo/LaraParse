@@ -61,6 +61,12 @@ The subclass will be created within `app/ParseClasses`.
 
 You must then register the subclass in your `config/parse.php` file.
 
+### Auth Provider
+
+LaraParse provides a driver for Laravel's built-in auth system to work with Parse. To use it, simple go to your `config/auth.php` and update the `'driver'` key to `'parse'`
+
+You may then use `Auth::attempt()` and friends as normal.
+
 ## Thanks
 
 Thanks a lot to [@gfosco](https://github.com/gfosco) over at [ParsePlatform/parse-php-sdk](https://github.com/ParsePlatform/parse-php-sdk/pull/80/files) for helping deal with a few PRs that were neccessary for this package to be possible.

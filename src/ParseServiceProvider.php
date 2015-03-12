@@ -4,10 +4,7 @@ namespace LaraParse;
 
 use Illuminate\Support\ServiceProvider;
 use LaraParse\Auth\ParseUserProvider;
-use LaraParse\Subclasses\Park;
-use LaraParse\Subclasses\Session;
 use LaraParse\Subclasses\User;
-use LaraParse\Subclasses\Vehicle;
 use Parse\ParseClient;
 
 class ParseServiceProvider extends ServiceProvider
@@ -23,6 +20,7 @@ class ParseServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerAuthProvider();
         $this->registerSubclasses();
+        $this->bootParseClient();
     }
 
     /**
@@ -32,14 +30,9 @@ class ParseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $config = $this->app['config']->get('services.parse');
-
         $this->app['command.parse.subclass.make'] = $this->app->share(function ($app) {
             return $app->make('LaraParse\Console\SubclassMakeCommand');
         });
-
-        // Init the parse client
-        ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
 
         // Register our custom commands
         $this->commands('command.parse.subclass.make');
@@ -66,5 +59,13 @@ class ParseServiceProvider extends ServiceProvider
         foreach ($this->app['config']->get('parse.subclasses') as $subclass) {
             call_user_func("$subclass::registerSubclass");
         }
+    }
+
+    private function bootParseClient()
+    {
+        $config = $this->app['config']->get('parse');
+
+        // Init the parse client
+        ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
     }
 }
