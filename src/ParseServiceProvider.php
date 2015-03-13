@@ -19,6 +19,7 @@ class ParseServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->registerAuthProvider();
+        $this->registerCustomValidation();
         $this->registerSubclasses();
         $this->bootParseClient();
     }
@@ -30,11 +31,17 @@ class ParseServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Register our user registrar service
+        $this->app->bind(
+            'Illuminate\Contracts\Auth\Registrar',
+            'LaraParse\Services\Registrar'
+        );
+
+        // Register our custom commands
         $this->app['command.parse.subclass.make'] = $this->app->share(function ($app) {
             return $app->make('LaraParse\Console\SubclassMakeCommand');
         });
 
-        // Register our custom commands
         $this->commands('command.parse.subclass.make');
     }
 
@@ -59,6 +66,11 @@ class ParseServiceProvider extends ServiceProvider
         foreach ($this->app['config']->get('parse.subclasses') as $subclass) {
             call_user_func("$subclass::registerSubclass");
         }
+    }
+
+    private function registerCustomValidation()
+    {
+        $this->app['validator']->extend('parse_user_unique', 'LaraParse\Validation\Validator@parseUserUnique');
     }
 
     private function bootParseClient()
