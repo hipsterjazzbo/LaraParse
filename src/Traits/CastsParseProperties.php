@@ -11,6 +11,10 @@ trait CastsParseProperties
      */
     public function __get($key)
     {
+        if (method_exists($this, $key)) {
+            return call_user_func([$this, $key]);
+        }
+
         switch ($key) {
             case 'objectId':
                 return $this->getObjectId();
