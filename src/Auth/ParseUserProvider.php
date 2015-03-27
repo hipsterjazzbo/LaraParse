@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Parse\ParseException;
 use Parse\ParseQuery;
-use LaraParse\Subclasses\User;
+use Parse\ParseUser;
 
 class ParseUserProvider implements UserProvider
 {
@@ -57,11 +57,15 @@ class ParseUserProvider implements UserProvider
      * @param  array $credentials
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|\LaraParse\Subclasses\User|null
+     * @throws \Exception
+     * @throws \Parse\ParseException
      */
     public function retrieveByCredentials(array $credentials)
     {
+        $username = $this->getUsernameFromCredentials($credentials);
+
         $query = new ParseQuery('_User');
-        $query->equalTo('username', $credentials['username']);
+        $query->equalTo('username', $username);
 
         return $query->first(true);
     }
@@ -77,11 +81,33 @@ class ParseUserProvider implements UserProvider
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
         try {
-            User::logIn($credentials['username'], $credentials['password']);
+            $username = $this->getUsernameFromCredentials($credentials);
+            ParseUser::logIn($username, $credentials['password']);
 
             return true;
         } catch (ParseException $error) {
             return false;
+        }
+    }
+
+    /**
+     * @param array $credentials
+     *
+     * @return mixed
+     * @throws \Parse\ParseException
+     */
+    private function getUsernameFromCredentials(array $credentials)
+    {
+        if (array_key_exists('username', $credentials)) {
+            $username = $credentials['username'];
+
+            return $username;
+        } elseif (array_key_exists('email', $credentials)) {
+            $username = $credentials['email'];
+
+            return $username;
+        } else {
+            throw new ParseException('$credentials must contain either a "username" or "email" key');
         }
     }
 }
