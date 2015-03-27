@@ -1,0 +1,24 @@
+<?php
+
+namespace {{namespace}};
+
+use LaraParse\Repositories\Contracts\ParseRepository;
+
+/**
+ * Class {{class}}
+ *
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] all()
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] paginate($perPage = 1);
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   create(array $data)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   update(array $data, $id)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   delete($id)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   find($id)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   findBy($field, $value)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] near($column, $latitude, $longitude, $limit = 10)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] within($column, $latitude, $longitude, $distance)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
+ */
+interface {{class}}Repository extends ParseRepository
+{
+    //
+}

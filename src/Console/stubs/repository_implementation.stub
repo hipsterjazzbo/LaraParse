@@ -1,0 +1,20 @@
+<?php
+
+namespace {{namespace}};
+
+use LaraParse\Repositories\AbstractParseRepository;
+use {{namespace}}\Contracts\{{class}}Repository;
+
+class Parse{{class}}Repository extends AbstractParseRepository implements {{class}}Repository
+{
+
+    /**
+     * Specify Parse Class name
+     *
+     * @return string
+     */
+    public function getParseClass()
+    {
+        return '{{parseClass}}';
+    }
+}

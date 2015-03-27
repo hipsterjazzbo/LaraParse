@@ -42,7 +42,11 @@ class ParseServiceProvider extends ServiceProvider
             return $app->make('LaraParse\Console\SubclassMakeCommand');
         });
 
-        $this->commands('command.parse.subclass.make');
+        $this->app['command.parse.repository.make'] = $this->app->share(function ($app) {
+            return $app->make('LaraParse\Console\RepositoryMakeCommand');
+        });
+
+        $this->commands('command.parse.subclass.make', 'command.parse.repository.make');
     }
 
     private function registerConfig()
@@ -61,10 +65,19 @@ class ParseServiceProvider extends ServiceProvider
 
     private function registerSubclasses()
     {
-        User::registerSubclass();
+        $subclasses = $this->app['config']->get('parse.subclasses');
+        $foundUserSubclass = false;
 
-        foreach ($this->app['config']->get('parse.subclasses') as $subclass) {
+        foreach ($subclasses as $subclass) {
             call_user_func("$subclass::registerSubclass");
+
+            if ((new $subclass)->getClassName() == '_User') {
+                $foundUserSubclass = true;
+            }
+        }
+
+        if (! $foundUserSubclass) {
+            User::registerSubclass();
         }
     }
 
