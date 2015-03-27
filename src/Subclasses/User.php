@@ -3,9 +3,21 @@
 namespace LaraParse\Subclasses;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Parse\ParseUser;
 use LaraParse\Traits\CastsParseProperties;
+use Parse\ParseUser;
 
+/**
+ * Class User
+ *
+ * @package LaraParse\Subclasses
+ *
+ * @property string         $username
+ * @property string         $password
+ * @property bool           $emailVerified
+ * @property string         $email
+ * @property \Carbon\Carbon $createdAt
+ * @property \Carbon\Carbon $updatedAt
+ */
 class User extends ParseUser implements Authenticatable
 {
     use CastsParseProperties;
