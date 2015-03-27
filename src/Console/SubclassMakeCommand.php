@@ -12,7 +12,7 @@ class SubclassMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:subclass';
+    protected $name = 'parse:subclass';
 
     /**
      * The console command description.
