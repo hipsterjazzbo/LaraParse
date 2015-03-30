@@ -5,6 +5,7 @@ namespace LaraParse\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Parse\ParseException;
+use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
@@ -82,7 +83,10 @@ class ParseUserProvider implements UserProvider
     {
         try {
             $username = $this->getUsernameFromCredentials($credentials);
-            ParseUser::logIn($username, $credentials['password']);
+
+            /** @var ParseUser $userClass */
+            $userClass = ParseObject::getRegisteredSubclass('_User');
+            $userClass::logIn($username, $credentials['password']);
 
             return true;
         } catch (ParseException $error) {
@@ -99,13 +103,9 @@ class ParseUserProvider implements UserProvider
     private function getUsernameFromCredentials(array $credentials)
     {
         if (array_key_exists('username', $credentials)) {
-            $username = $credentials['username'];
-
-            return $username;
+            return $credentials['username'];
         } elseif (array_key_exists('email', $credentials)) {
-            $username = $credentials['email'];
-
-            return $username;
+            return $credentials['email'];
         } else {
             throw new ParseException('$credentials must contain either a "username" or "email" key');
         }
