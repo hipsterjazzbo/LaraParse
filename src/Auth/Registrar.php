@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraParse\Services;
+namespace LaraParse\Auth;
 
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;

@@ -32,12 +32,12 @@ interface ParseRepository
     public function create(array $data);
 
     /**
-     * @param array $data
      * @param       $id
+     * @param array $data
      *
      * @return \Parse\ParseObject
      */
-    public function update(array $data, $id);
+    public function update($id, array $data);
 
     /**
      * @param $id

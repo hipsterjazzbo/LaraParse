@@ -34,7 +34,7 @@ class ParseServiceProvider extends ServiceProvider
         // Register our user registrar service
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
-            'LaraParse\Services\Registrar'
+            'LaraParse\Auth\Registrar'
         );
 
         // Register our custom commands

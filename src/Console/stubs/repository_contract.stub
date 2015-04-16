@@ -10,7 +10,7 @@ use LaraParse\Repositories\Contracts\ParseRepository;
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] all()
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] paginate($perPage = 1);
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   create(array $data)
- * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   update(array $data, $id)
+ * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   update($id, array $data)
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   delete($id)
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   find($id)
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}   findBy($field, $value)

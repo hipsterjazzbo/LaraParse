@@ -8,14 +8,8 @@
       "email": "calebfidecaro@gmail.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/HipsterJazzbo/parse-php-sdk.git"
-    }
-  ],
   "require": {
-    "parse/php-sdk": "dev-user-subclass",
+    "parse/php-sdk": "~1.1.2",
     "illuminate/support": "~5.0",
     "nesbot/carbon": "~1.16",
     "illuminate/contracts": "~5.0",

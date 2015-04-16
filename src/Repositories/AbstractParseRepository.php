@@ -39,7 +39,7 @@ abstract class AbstractParseRepository implements ParseRepository
      */
     public function useMasterKey($shouldUse = false)
     {
-        $that = clone $this;
+        $that               = clone $this;
         $that->useMasterKey = $shouldUse;
 
         return $that;
@@ -79,12 +79,12 @@ abstract class AbstractParseRepository implements ParseRepository
     }
 
     /**
-     * @param array $data
      * @param       $id
+     * @param array $data
      *
      * @return mixed
      */
-    public function update(array $data, $id)
+    public function update($id, array $data)
     {
         $parseClass = $this->find($id);
 
@@ -186,8 +186,8 @@ abstract class AbstractParseRepository implements ParseRepository
      */
     public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
     {
-        $southWest = new ParseGeoPoint((float) $swLatitude, (float) $swLongitude);
-        $northEast = new ParseGeoPoint((float) $neLatitude, (float) $neLongitude);
+        $southWest = new ParseGeoPoint((float)$swLatitude, (float)$swLongitude);
+        $northEast = new ParseGeoPoint((float)$neLatitude, (float)$neLongitude);
 
         $this->query->withinGeoBox($column, $southWest, $northEast);
 
@@ -203,19 +203,16 @@ abstract class AbstractParseRepository implements ParseRepository
     private function setValues(array $data, $parseObject)
     {
         foreach ($data as $key => $value) {
-            // If the key exists on the object
-            if ($parseObject->has($key)) {
-                // If it's an array, we need to use different setter methods
-                if (is_array($value)) {
-                    // Associative array
-                    if (count(array_filter(array_keys($value), 'is_string'))) {
-                        $parseObject->setAssociativeArray($key, $value);
-                    } else {
-                        $parseObject->setArray($key, $value);
-                    }
+            // If it's an array, we need to use different setter methods
+            if (is_array($value)) {
+                // Associative array
+                if (count(array_filter(array_keys($value), 'is_string'))) {
+                    $parseObject->setAssociativeArray($key, $value);
                 } else {
-                    $parseObject->set($key, $value);
+                    $parseObject->setArray($key, $value);
                 }
+            } else {
+                $parseObject->set($key, $value);
             }
         }
 
