@@ -55,6 +55,7 @@ class Registrar implements RegistrarContract
     {
         $user           = new User;
         $user->username = $data['email'];
+        $user->email    = $data['email'];
         $user->password = $data['password'];
         $user->signUp();
 
