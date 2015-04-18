@@ -68,7 +68,13 @@ class ParseUserProvider implements UserProvider
         $query = new ParseQuery('_User');
         $query->equalTo('username', $username);
 
-        return $query->first(true);
+        $user =$query->first(true);
+        
+        if (!empty($user)){
+            return $user;
+        }
+    
+        return  null;
     }
 
     /**
