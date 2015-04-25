@@ -4,9 +4,8 @@ namespace LaraParse\Auth;
 
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
-use Illuminate\Support\MessageBag;
 use LaraParse\Subclasses\User;
-use Parse\ParseException;
+use Parse\ParseObject;
 
 class Registrar implements RegistrarContract
 {
@@ -53,7 +52,8 @@ class Registrar implements RegistrarContract
      */
     public function create(array $data)
     {
-        $user           = new User;
+        $userSubclass   = ParseObject::getRegisteredSubclass('_User');
+        $user           = new $userSubclass;
         $user->username = $data['email'];
         $user->password = $data['password'];
         $user->signUp();
