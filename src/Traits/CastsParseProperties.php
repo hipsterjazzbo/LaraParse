@@ -2,6 +2,9 @@
 
 namespace LaraParse\Traits;
 
+use DateTime;
+use Carbon\Carbon;
+
 trait CastsParseProperties
 {
     /**
