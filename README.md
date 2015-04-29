@@ -59,7 +59,7 @@ Subclasses can make Parse a lot easier to work with. They save you from always d
 You can generate a subclass like so:
 
 ```bash
-php artisan make:subclass ClassName
+php artisan parse:subclass ClassName
 ```
 
 It is assumed that `ClassName` is the same as the class within Parse, but if not you can use the `--parse-class=ParseClass` option to set it manually.
