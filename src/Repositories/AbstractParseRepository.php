@@ -13,12 +13,12 @@ abstract class AbstractParseRepository implements ParseRepository
     /**
      * @var \Parse\ParseQuery
      */
-    private $query;
+    protected $query;
 
     /**
      * @var bool
      */
-    private $useMasterKey = false;
+    protected $useMasterKey = false;
 
     public function __construct()
     {
@@ -200,7 +200,7 @@ abstract class AbstractParseRepository implements ParseRepository
      *
      * @return mixed
      */
-    private function setValues(array $data, $parseObject)
+    protected function setValues(array $data, $parseObject)
     {
         foreach ($data as $key => $value) {
             // If it's an array, we need to use different setter methods
