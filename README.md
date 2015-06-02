@@ -33,7 +33,7 @@ Then load the service provider in your `config/app.php`:
 You'll also need to publish the config, so you can provide your keys:
 
 ```bash
-php artisan vendor:publish --provider=hipsterjazzbo/laraparse
+php artisan vendor:publish --provider=hipsterjazzbo/laraparse --tag=config
 ```
 
 ## Usage
