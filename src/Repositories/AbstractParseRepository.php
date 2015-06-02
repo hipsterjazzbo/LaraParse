@@ -75,7 +75,9 @@ abstract class AbstractParseRepository implements ParseRepository
     {
         $parseClass = new ParseObject($this->getParseClass());
 
-        return $this->setValues($data, $parseClass);
+        $this->setValues($data, $parseClass);
+        
+        return $parseClass;
     }
 
     /**
@@ -88,7 +90,9 @@ abstract class AbstractParseRepository implements ParseRepository
     {
         $parseClass = $this->find($id);
 
-        return $this->setValues($data, $parseClass);
+        $this->setValues($data, $parseClass);
+        
+        return $parseClass;
     }
 
     /**
