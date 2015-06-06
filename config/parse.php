@@ -36,4 +36,23 @@ return [
         // '\App\ParseClasses\CustomClass'
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Repositories
+    |--------------------------------------------------------------------------
+    |
+    | Once you add a new repository, you should add it to this array so that
+    | you can inject the contract into your constructors thereby "insulating"
+    | your classes from being tightly coupled to the Parse SDK. Generate the
+    | repository with:
+    |
+    |     php artisan parse:repository ClassName [--parse-class=ParseClassName]
+    |
+    | Then you must register them here
+    |
+    */
+    'repositories' => [
+        // ''\App\Repositories\ParseCustomClassRepository'=>'\App\Repositories\Contracts\CustomClassRepository',
+    ],
 ];

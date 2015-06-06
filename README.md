@@ -96,6 +96,8 @@ If you'd rather just generate an implementation, you can use `--which="implement
 
 See `\LaraParse\Repositories\Contracts\ParseRepository` to learn what methods are available.
 
+If you want to bind the implementation to the contract you can populate the repositories array in the parse.php config (http://laravel.com/docs/5.0/container#binding-interfaces-to-implementations)
+
 #### Using master key
 
 If you need to use the master key for a query, you can do it like so:

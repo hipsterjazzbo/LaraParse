@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use LaraParse\Auth\ParseUserProvider;
 use LaraParse\Subclasses\User;
 use Parse\ParseClient;
+use LaraParse\Session\ParseSessionStorage;
 
 class ParseServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,7 @@ class ParseServiceProvider extends ServiceProvider
         $this->registerAuthProvider();
         $this->registerCustomValidation();
         $this->registerSubclasses();
+        $this->registerRepositoryImplementations();
         $this->bootParseClient();
     }
 
@@ -86,11 +88,22 @@ class ParseServiceProvider extends ServiceProvider
         $this->app['validator']->extend('parse_user_unique', 'LaraParse\Validation\Validator@parseUserUnique');
     }
 
+    public function registerRepositoryImplementations(){
+        $repositories = $this->app['config']->get('parse.repositories');
+
+        foreach($repositories as $contract => $implementation){
+            $this->app->bind(
+                $implementation, $contract
+            );
+        }
+    }
+
     private function bootParseClient()
     {
         $config = $this->app['config']->get('parse');
 
         // Init the parse client
         ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
+        ParseClient::setStorage(new ParseSessionStorage());
     }
 }
