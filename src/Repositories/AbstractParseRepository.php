@@ -6,6 +6,7 @@ use LaraParse\Repositories\Contracts\ParseRepository;
 use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+use Illuminate\Support\Collection;
 
 abstract class AbstractParseRepository implements ParseRepository
 {
@@ -46,14 +47,14 @@ abstract class AbstractParseRepository implements ParseRepository
     }
 
     /**
-     * @return ParseObject[]
+     * @return Collection
      */
     public function all()
     {
         // TODO: Make this deal with actual pagination
         $this->query->limit(1000);
 
-        return $this->query->find($this->useMasterKey);
+        return Collection::make($this->query->find($this->useMasterKey));
     }
 
     /**
@@ -138,7 +139,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $longitude
      * @param $limit
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection
      */
     public function near($column, $latitude, $longitude, $limit = 10)
     {
@@ -147,7 +148,7 @@ abstract class AbstractParseRepository implements ParseRepository
         $this->query->near($column, $location);
         $this->query->limit($limit);
 
-        return $this->query->find($this->useMasterKey);
+        return Collection::make($this->query->find($this->useMasterKey));
     }
 
     /**
@@ -156,7 +157,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $longitude
      * @param $distance
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection
      */
     public function within($column, $latitude, $longitude, $distance)
     {
@@ -176,7 +177,7 @@ abstract class AbstractParseRepository implements ParseRepository
                 break;
         }
 
-        return $this->query->find($this->useMasterKey);
+        return Collection::make($this->query->find($this->useMasterKey));
     }
 
     /**
@@ -186,7 +187,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $neLatitude
      * @param $neLongitude
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection
      */
     public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
     {
@@ -195,7 +196,7 @@ abstract class AbstractParseRepository implements ParseRepository
 
         $this->query->withinGeoBox($column, $southWest, $northEast);
 
-        return $this->query->find($this->useMasterKey);
+        return Collection::make($this->query->find($this->useMasterKey));
     }
 
     /**
