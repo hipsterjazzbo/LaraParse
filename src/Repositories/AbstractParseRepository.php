@@ -47,7 +47,7 @@ abstract class AbstractParseRepository implements ParseRepository
     }
 
     /**
-     * @return Collection
+     * @return Collection|ParseObject[]
      */
     public function all()
     {
@@ -139,7 +139,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $longitude
      * @param $limit
      *
-     * @return Collection
+     * @return Collection|ParseObject[]
      */
     public function near($column, $latitude, $longitude, $limit = 10)
     {
@@ -157,7 +157,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $longitude
      * @param $distance
      *
-     * @return Collection
+     * @return Collection|ParseObject[]
      */
     public function within($column, $latitude, $longitude, $distance)
     {
@@ -187,7 +187,7 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $neLatitude
      * @param $neLongitude
      *
-     * @return Collection
+     * @return Collection|ParseObject[]
      */
     public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
     {
