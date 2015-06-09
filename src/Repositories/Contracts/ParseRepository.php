@@ -2,6 +2,9 @@
 
 namespace LaraParse\Repositories\Contracts;
 
+use Illuminate\Support\Collection;
+use Parse\ParseObject;
+
 interface ParseRepository
 {
 
@@ -13,21 +16,21 @@ interface ParseRepository
     public function useMasterKey($shouldUse = false);
 
     /**
-     * @return \Parse\ParseObject
+     * @return ParseObject
      */
     public function all();
 
     /**
      * @param int $perPage
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection|ParseObject[]
      */
     public function paginate($perPage = 1);
 
     /**
      * @param array $data
      *
-     * @return \Parse\ParseObject
+     * @return ParseObject
      */
     public function create(array $data);
 
@@ -35,7 +38,7 @@ interface ParseRepository
      * @param       $id
      * @param array $data
      *
-     * @return \Parse\ParseObject
+     * @return ParseObject
      */
     public function update($id, array $data);
 
@@ -49,7 +52,7 @@ interface ParseRepository
     /**
      * @param $id
      *
-     * @return \Parse\ParseObject
+     * @return ParseObject
      */
     public function find($id);
 
@@ -57,7 +60,7 @@ interface ParseRepository
      * @param $field
      * @param $value
      *
-     * @return \Parse\ParseObject
+     * @return ParseObject
      */
     public function findBy($field, $value);
 
@@ -67,7 +70,7 @@ interface ParseRepository
      * @param $longitude
      * @param $limit
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection|ParseObject[]
      */
     public function near($column, $latitude, $longitude, $limit = 10);
 
@@ -77,7 +80,7 @@ interface ParseRepository
      * @param $longitude
      * @param $distance
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection|ParseObject[]
      */
     public function within($column, $latitude, $longitude, $distance);
 
@@ -88,7 +91,7 @@ interface ParseRepository
      * @param $neLatitude
      * @param $neLongitude
      *
-     * @return \Parse\ParseObject[]
+     * @return Collection|ParseObject[]
      */
     public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude);
 }
