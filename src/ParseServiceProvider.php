@@ -103,6 +103,6 @@ class ParseServiceProvider extends ServiceProvider
 
         // Init the parse client
         ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
-        ParseClient::setStorage(new ParseSessionStorage());
+        ParseClient::setStorage(new ParseSessionStorage($this->app['session']));
     }
 }
