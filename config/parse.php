@@ -26,7 +26,7 @@ return [
     | If you'd like to provide custom subclasses for your parse classes, you
     | can generate them with:
     |
-    |     php artisan make:subclass ClassName [--parse-class=ParseClassName]
+    |     php artisan parse:subclass ClassName [--parse-class=ParseClassName]
     |
     | Then you must register them here
     |
@@ -53,6 +53,6 @@ return [
     |
     */
     'repositories' => [
-        // ''\App\Repositories\ParseCustomClassRepository'=>'\App\Repositories\Contracts\CustomClassRepository',
+        // '\App\Repositories\ParseCustomClassRepository' => '\App\Repositories\Contracts\CustomClassRepository',
     ],
 ];
