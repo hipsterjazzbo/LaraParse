@@ -1,15 +1,11 @@
 <?php namespace LaraParse\Session;
 
 use LaraParse\Traits\CastsParseProperties;
-use Parse\ParseClient;
-use Parse\ParseSession;
 use Parse\ParseStorageInterface;
-use Parse\ParseUser;
-use Parse\ParseException;
 use Session;
 
-class ParseSessionStorage implements ParseStorageInterface {
-
+class ParseSessionStorage implements ParseStorageInterface
+{
     use CastsParseProperties;
 
     /**
@@ -20,7 +16,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return null
      */
-    public function set($key, $value){
+    public function set($key, $value)
+    {
         Session::put($key, $value);
 
         return null;
@@ -33,7 +30,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return null
      */
-    public function remove($key){
+    public function remove($key)
+    {
         Session::forget($key);
 
         return null;
@@ -46,7 +44,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return mixed
      */
-    public function get($key){
+    public function get($key)
+    {
         return Session::get($key);
     }
 
@@ -55,7 +54,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return null
      */
-    public function clear(){
+    public function clear()
+    {
         Session::clear();
     }
 
@@ -66,7 +66,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return null
      */
-    public function save(){
+    public function save()
+    {
         return null;
     }
 
@@ -75,7 +76,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return array
      */
-    public function getKeys(){
+    public function getKeys()
+    {
         return array_keys(Session::all());
     }
 
@@ -84,7 +86,8 @@ class ParseSessionStorage implements ParseStorageInterface {
      *
      * @return array
      */
-    public function getAll(){
+    public function getAll()
+    {
         return Session::all();
     }
 }

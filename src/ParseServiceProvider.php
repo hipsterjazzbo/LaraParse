@@ -88,13 +88,12 @@ class ParseServiceProvider extends ServiceProvider
         $this->app['validator']->extend('parse_user_unique', 'LaraParse\Validation\Validator@parseUserUnique');
     }
 
-    public function registerRepositoryImplementations(){
+    public function registerRepositoryImplementations()
+    {
         $repositories = $this->app['config']->get('parse.repositories');
 
-        foreach($repositories as $contract => $implementation){
-            $this->app->bind(
-                $implementation, $contract
-            );
+        foreach ($repositories as $contract => $implementation) {
+            $this->app->bind($implementation, $contract);
         }
     }
 
