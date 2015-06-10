@@ -11,6 +11,13 @@ class ParseSessionStorage implements ParseStorageInterface
      * @var \Illuminate\Session\SessionManager
      */
     private $session;
+    
+    /**
+     * Parse will store its values in a specific key.
+     *
+     * @var string
+     */
+    private $storageKey = 'parseData';
 
     /**
      * @param \Illuminate\Session\SessionManager $session
@@ -30,7 +37,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function set($key, $value)
     {
-        $this->session->put($key, $value);
+        $this->session->put($this->storageKey . '.' . $key, $value);
 
         return null;
     }
@@ -44,7 +51,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function remove($key)
     {
-        $this->session->forget($key);
+        $this->session->forget($this->storageKey . '.' . $key);
 
         return null;
     }
@@ -58,7 +65,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function get($key)
     {
-        return $this->session->get($key);
+        return $this->session->get($this->storageKey . '.' . $key);
     }
 
     /**
@@ -68,7 +75,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function clear()
     {
-        $this->session->clear();
+        $this->session->flush($this->storageKey);
     }
 
     /**
@@ -90,7 +97,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function getKeys()
     {
-        return array_keys($this->session->all());
+        return array_keys($this->session->get($this->storageKey));
     }
 
     /**
@@ -100,6 +107,6 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function getAll()
     {
-        return $this->session->all();
+        return $this->session->get($this->storageKey);
     }
 }
