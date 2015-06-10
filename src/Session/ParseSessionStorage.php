@@ -1,12 +1,31 @@
 <?php namespace LaraParse\Session;
 
+use Illuminate\Session\SessionManager;
 use LaraParse\Traits\CastsParseProperties;
 use Parse\ParseStorageInterface;
-use Session;
 
 class ParseSessionStorage implements ParseStorageInterface
 {
     use CastsParseProperties;
+    /**
+     * @var \Illuminate\Session\SessionManager
+     */
+    private $session;
+    
+    /**
+     * Parse will store its values in a specific key.
+     *
+     * @var string
+     */
+    private $storageKey = 'parseData';
+
+    /**
+     * @param \Illuminate\Session\SessionManager $session
+     */
+    public function __construct(SessionManager $session)
+    {
+        $this->session = $session;
+    }
 
     /**
      * Sets a key-value pair in storage.
@@ -18,7 +37,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function set($key, $value)
     {
-        Session::put($key, $value);
+        $this->session->put($this->storageKey . '.' . $key, $value);
 
         return null;
     }
@@ -32,7 +51,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function remove($key)
     {
-        Session::forget($key);
+        $this->session->forget($this->storageKey . '.' . $key);
 
         return null;
     }
@@ -46,7 +65,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function get($key)
     {
-        return Session::get($key);
+        return $this->session->get($this->storageKey . '.' . $key);
     }
 
     /**
@@ -56,11 +75,11 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function clear()
     {
-        Session::clear();
+        $this->session->flush($this->storageKey);
     }
 
     /**
-     * Save the data, if necessary.    This would be a no-op when using the
+     * Save the data, if necessary. This would be a no-op when using the
      * $_SESSION implementation, but could be used for saving to file or
      * database as an action instead of on every set.
      *
@@ -78,7 +97,7 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function getKeys()
     {
-        return array_keys(Session::all());
+        return array_keys($this->session->get($this->storageKey));
     }
 
     /**
@@ -88,6 +107,6 @@ class ParseSessionStorage implements ParseStorageInterface
      */
     public function getAll()
     {
-        return Session::all();
+        return $this->session->get($this->storageKey);
     }
 }
