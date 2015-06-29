@@ -58,7 +58,7 @@ abstract class AbstractParseRepository implements ParseRepository
     {
         // TODO: Make this deal with actual pagination
         $this->query->limit(1000);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -125,7 +125,7 @@ abstract class AbstractParseRepository implements ParseRepository
      */
     public function find($id, $columns = ['*'], $keyToInclude = [])
     {
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -143,7 +143,7 @@ abstract class AbstractParseRepository implements ParseRepository
     public function findBy($field, $value, $columns = ['*'], $keyToInclude = [])
     {
         $this->query->equalTo($field, $value);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -165,7 +165,7 @@ abstract class AbstractParseRepository implements ParseRepository
 
         $this->query->near($column, $location);
         $this->query->limit($limit);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -184,7 +184,7 @@ abstract class AbstractParseRepository implements ParseRepository
     public function within($column, $latitude, $longitude, $distance, $keyToInclude = [])
     {
         $location = new ParseGeoPoint($latitude, $longitude);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -221,7 +221,7 @@ abstract class AbstractParseRepository implements ParseRepository
         $northEast = new ParseGeoPoint((float)$neLatitude, (float)$neLongitude);
 
         $this->query->withinGeoBox($column, $southWest, $northEast);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
@@ -239,7 +239,7 @@ abstract class AbstractParseRepository implements ParseRepository
     public function findAllBy($field, $value, $keyToInclude = [])
     {
         $this->query->equalTo($field, $value);
-        for ($i = 0; $i > count($keyToInclude); $i++) {
+        for ($i = 0; $i < count($keyToInclude); $i++) {
             $this->query->includeKey($keyToInclude[$i]);
         }
 
