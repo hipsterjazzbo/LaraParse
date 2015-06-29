@@ -8,6 +8,10 @@ use Parse\ParseObject;
 use Parse\ParseQuery;
 use Illuminate\Support\Collection;
 
+/**
+ * Class AbstractParseRepository
+ * @package LaraParse\Repositories
+ */
 abstract class AbstractParseRepository implements ParseRepository
 {
 
@@ -40,19 +44,23 @@ abstract class AbstractParseRepository implements ParseRepository
      */
     public function useMasterKey($shouldUse = false)
     {
-        $that               = clone $this;
+        $that = clone $this;
         $that->useMasterKey = $shouldUse;
 
         return $that;
     }
 
     /**
+     * @param $keyToInclude = []
      * @return Collection|ParseObject[]
      */
-    public function all()
+    public function all($keyToInclude = [])
     {
         // TODO: Make this deal with actual pagination
         $this->query->limit(1000);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
 
         return Collection::make($this->query->find($this->useMasterKey));
     }
@@ -77,7 +85,7 @@ abstract class AbstractParseRepository implements ParseRepository
         $parseClass = new ParseObject($this->getParseClass());
 
         $this->setValues($data, $parseClass);
-        
+
         return $parseClass;
     }
 
@@ -92,7 +100,7 @@ abstract class AbstractParseRepository implements ParseRepository
         $parseClass = $this->find($id);
 
         $this->setValues($data, $parseClass);
-        
+
         return $parseClass;
     }
 
@@ -111,11 +119,16 @@ abstract class AbstractParseRepository implements ParseRepository
     /**
      * @param       $id
      * @param array $columns
+     * @param array $keyToInclude
      *
      * @return ParseObject
      */
-    public function find($id, $columns = ['*'])
+    public function find($id, $columns = ['*'], $keyToInclude = [])
     {
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
+
         return $this->query->get($id, $this->useMasterKey);
     }
 
@@ -123,12 +136,16 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param       $field
      * @param       $value
      * @param array $columns
+     * @param array $keyToInclude
      *
      * @return ParseObject
      */
-    public function findBy($field, $value, $columns = ['*'])
+    public function findBy($field, $value, $columns = ['*'], $keyToInclude = [])
     {
         $this->query->equalTo($field, $value);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
 
         return $this->query->first($this->useMasterKey);
     }
@@ -138,15 +155,19 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $latitude
      * @param $longitude
      * @param $limit
+     * @param array $keyToInclude
      *
      * @return Collection|ParseObject[]
      */
-    public function near($column, $latitude, $longitude, $limit = 10)
+    public function near($column, $latitude, $longitude, $limit = 10, $keyToInclude = [])
     {
         $location = new ParseGeoPoint($latitude, $longitude);
 
         $this->query->near($column, $location);
         $this->query->limit($limit);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
 
         return Collection::make($this->query->find($this->useMasterKey));
     }
@@ -156,12 +177,16 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $latitude
      * @param $longitude
      * @param $distance
+     * @param array $keyToInclude
      *
      * @return Collection|ParseObject[]
      */
-    public function within($column, $latitude, $longitude, $distance)
+    public function within($column, $latitude, $longitude, $distance, $keyToInclude = [])
     {
         $location = new ParseGeoPoint($latitude, $longitude);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
 
         switch (config('parse.units', 'kilometers')) {
             case 'kilometers':
@@ -186,21 +211,43 @@ abstract class AbstractParseRepository implements ParseRepository
      * @param $swLongitude
      * @param $neLatitude
      * @param $neLongitude
+     * @param array $keyToInclude
      *
      * @return Collection|ParseObject[]
      */
-    public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
+    public function withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude, $keyToInclude = [])
     {
         $southWest = new ParseGeoPoint((float)$swLatitude, (float)$swLongitude);
         $northEast = new ParseGeoPoint((float)$neLatitude, (float)$neLongitude);
 
         $this->query->withinGeoBox($column, $southWest, $northEast);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
 
         return Collection::make($this->query->find($this->useMasterKey));
     }
 
     /**
-     * @param array       $data
+     * Returns all objects where a given field matches a given value
+     * @param string $field
+     * @param mixed $value
+     * @param array $keyToInclude
+     *
+     * @return Collection|ParseObject[]
+     */
+    public function findAllBy($field, $value, $keyToInclude = [])
+    {
+        $this->query->equalTo($field, $value);
+        for ($i = 0; $i > count($keyToInclude); $i++) {
+            $this->query->includeKey($keyToInclude[$i]);
+        }
+
+        return Collection::make($this->query->find($this->useMasterKey));
+    }
+
+    /**
+     * @param array $data
      * @param ParseObject $parseObject
      *
      * @return mixed
@@ -223,4 +270,5 @@ abstract class AbstractParseRepository implements ParseRepository
 
         return $parseObject->save($this->useMasterKey);
     }
+
 }
