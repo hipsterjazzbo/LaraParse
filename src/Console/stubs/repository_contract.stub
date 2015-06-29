@@ -1,11 +1,11 @@
 <?php
 
-namespace {{namespace}};
+namespace DummyNamespace;
 
 use LaraParse\Repositories\Contracts\ParseRepository;
 
 /**
- * Class {{class}}
+ * Class DummyClass
  *
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] all()
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] paginate($perPage = 1);
@@ -18,7 +18,7 @@ use LaraParse\Repositories\Contracts\ParseRepository;
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] within($column, $latitude, $longitude, $distance)
  * @method \{{rootNamespace}}ParseClasses\{{parseClass}}[] withinBox($column, $swLatitude, $swLongitude, $neLatitude, $neLongitude)
  */
-interface {{class}}Repository extends ParseRepository
+interface DummyClassRepository extends ParseRepository
 {
     //
 }

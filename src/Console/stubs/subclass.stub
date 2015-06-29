@@ -1,16 +1,16 @@
 <?php
 
-namespace {{namespace}};
+namespace DummyNamespace;
 
 use Parse\ParseObject;
 use LaraParse\Traits\CastsParseProperties;
 
 /**
- * Class {{class}}
+ * Class DummyClass
  *
  * @package LaraParse
  */
-class {{class}} extends ParseObject
+class DummyClass extends ParseObject
 {
     use CastsParseProperties;
 

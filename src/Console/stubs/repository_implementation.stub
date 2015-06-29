@@ -1,11 +1,11 @@
 <?php
 
-namespace {{namespace}};
+namespace DummyNamespace;
 
 use LaraParse\Repositories\AbstractParseRepository;
-use {{namespace}}\Contracts\{{class}}Repository;
+use DummyNamespace\Contracts\DummyClassRepository;
 
-class Parse{{class}}Repository extends AbstractParseRepository implements {{class}}Repository
+class ParseDummyClassRepository extends AbstractParseRepository implements DummyClassRepository
 {
 
     /**

@@ -123,7 +123,7 @@ class RepositoryMakeCommand extends GeneratorCommand
 
     protected function getPath($name)
     {
-        $name = str_replace($this->getAppNamespace(), '', $name);
+        $name = str_replace($this->laravel->getNamespace(), '', $name);
 
         $path = $this->laravel['path'].'/'.str_replace('\\', '/', $name).'Repository.php';
 
