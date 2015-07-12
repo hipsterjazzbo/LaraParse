@@ -32,7 +32,7 @@ class Registrar implements RegistrarContract
     public function validator(array $data)
     {
         $messages = [
-            'parse_user_unique' => 'Testing message.',
+            'parse_user_unique' => 'Sorry, that email is already registered.',
         ];
 
         $rules = [
