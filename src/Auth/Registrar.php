@@ -54,7 +54,7 @@ class Registrar implements RegistrarContract
     {
         $userSubclass   = ParseObject::getRegisteredSubclass('_User');
         $user           = new $userSubclass;
-        $user->username = $data['email'];
+        $user->username = isset($data['username']) ? $data['username'] : $data['email'];
         $user->email    = $data['email'];
         $user->password = $data['password'];
         $user->signUp();
