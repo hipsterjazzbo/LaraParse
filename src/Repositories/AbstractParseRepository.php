@@ -82,8 +82,8 @@ abstract class AbstractParseRepository implements ParseRepository
      */
     public function create(array $data)
     {
-        $parseClass = new ParseObject($this->getParseClass());
-
+        $subClass =  ParseObject::getRegisteredSubclass($this->getParseClass());
+        $parseClass = new $subClass();
         $this->setValues($data, $parseClass);
 
         return $parseClass;
