@@ -23,7 +23,11 @@ class ParseUserProvider implements UserProvider
     {
         $query = new ParseQuery('_User');
 
-        return $query->get($identifier, true);
+        try {
+            return $query->get($identifier, true);
+        } catch( ParseException $pex) {
+            return null;
+        }
     }
 
     /**
