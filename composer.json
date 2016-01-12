@@ -1,5 +1,5 @@
 {
-  "name": "hipsterjazzbo/laraparse",
+  "name": "7glyphs/laraparse",
   "description": "Integrate your Laravel 5 project with Parse (parse.com)",
   "license": "MIT",
   "authors": [
@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "laravel/framework": "5.0.*|5.1.*",
+    "laravel/framework": "5.0.*|5.1.*|5.2.*",
     "parse/php-sdk": "~1.1.2",
     "nesbot/carbon": "~1.16"
   },
