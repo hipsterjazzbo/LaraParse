@@ -22,6 +22,14 @@ class User extends ParseUser implements Authenticatable
 {
     use CastsParseProperties;
 
+	/**
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->getUsername();
+    }
+
     /**
      * Get the unique identifier for the user.
      *
