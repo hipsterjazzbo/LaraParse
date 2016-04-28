@@ -27,7 +27,7 @@ class User extends ParseUser implements Authenticatable
      */
     public function getAuthIdentifierName()
     {
-        return $this->getUsername();
+        return $this->username;
     }
 
     /**
