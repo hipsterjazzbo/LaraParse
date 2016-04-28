@@ -1,11 +1,11 @@
 {
-  "name": "hipsterjazzbo/laraparse",
+  "name": "gweiss27/laraparse",
   "description": "Integrate your Laravel 5 project with Parse (parse.com)",
   "license": "MIT",
   "authors": [
     {
-      "name": "Caleb Fidecaro",
-      "email": "calebfidecaro@gmail.com"
+      "name": "Gregory Weiss",
+      "email": "gweiss27@gmail.com"
     }
   ],
   "require": {
