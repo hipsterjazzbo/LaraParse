@@ -10,7 +10,7 @@
   ],
   "require": {
     "laravel/framework": "5.0.*|5.1.*|5.2.*",
-    "parse/php-sdk": "~1.1.2",
+    "parse/php-sdk": "~1.2.0",
     "nesbot/carbon": "~1.16"
   },
   "autoload": {
