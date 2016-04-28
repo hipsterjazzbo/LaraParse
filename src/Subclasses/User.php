@@ -33,6 +33,16 @@ class User extends ParseUser implements Authenticatable
     }
 
     /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'objectId';
+    }
+
+    /**
      * Get the password for the user.
      *
      * @return string
