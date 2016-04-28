@@ -14,6 +14,7 @@ return [
     |
     */
 
+    'server_url' => env('PARSE_SERVER_URL', ''),
     'app_id'     => env('PARSE_APP_ID', ''),
     'rest_key'   => env('PARSE_REST_KEY', ''),
     'master_key' => env('PARSE_MASTER_KEY', ''),
