@@ -8,6 +8,8 @@ use LaraParse\Subclasses\User;
 use Parse\ParseClient;
 use LaraParse\Session\ParseSessionStorage;
 
+use Auth;
+
 class ParseServiceProvider extends ServiceProvider
 {
 
@@ -60,7 +62,7 @@ class ParseServiceProvider extends ServiceProvider
 
     private function registerAuthProvider()
     {
-        $this->app['auth']->extend('parse', function () {
+        Auth::provider('parse', function() {
             return new ParseUserProvider;
         });
     }
