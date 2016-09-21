@@ -104,8 +104,8 @@ class ParseServiceProvider extends ServiceProvider
         // Init the parse client
         ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
         
-        if (empty($config['server_url']) != true) {
-            ParseClient::setServerURL($config['server_url']);
+        if (false === empty($config['server_url']) && false === empty($config['server_mount_path'])) {
+            ParseClient::setServerURL($config['server_url'], $config['server_mount_path']);
         }
         
         ParseClient::setStorage(new ParseSessionStorage($this->app['session']));
