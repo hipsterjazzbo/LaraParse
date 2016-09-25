@@ -8,6 +8,8 @@ use LaraParse\Subclasses\User;
 use Parse\ParseClient;
 use LaraParse\Session\ParseSessionStorage;
 
+use Auth;
+
 class ParseServiceProvider extends ServiceProvider
 {
 
@@ -60,7 +62,7 @@ class ParseServiceProvider extends ServiceProvider
 
     private function registerAuthProvider()
     {
-        $this->app['auth']->extend('parse', function () {
+        Auth::provider('parse', function() {
             return new ParseUserProvider;
         });
     }
@@ -104,8 +106,8 @@ class ParseServiceProvider extends ServiceProvider
         // Init the parse client
         ParseClient::initialize($config['app_id'], $config['rest_key'], $config['master_key']);
         
-        if (empty($config['server_url']) != true) {
-            ParseClient::setServerURL($config['server_url']);
+        if (empty($config['server_url']) != true && empty($config['mount_path'] != true)) {
+            ParseClient::setServerURL($config['server_url'], $config['mount_path']);
         }
         
         ParseClient::setStorage(new ParseSessionStorage($this->app['session']));
