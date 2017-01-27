@@ -12,6 +12,8 @@ use Parse\ParseUser;
 class ParseUserProvider implements UserProvider
 {
 
+    const PEX_OBJECT_NOT_FOUND = 101;
+
     /**
      * Retrieve a user by their unique identifier.
      *
@@ -23,7 +25,16 @@ class ParseUserProvider implements UserProvider
     {
         $query = new ParseQuery('_User');
 
-        return $query->get($identifier, true);
+        try {
+            return $query->get($identifier, true);
+        } catch( ParseException $pex) {
+            // Only return null if it's the object not found exception
+            if ( $pex->getCode() == self::PEX_OBJECT_NOT_FOUND ) {
+                return null;
+            } else {
+                throw $pex;
+            }
+        }
     }
 
     /**
